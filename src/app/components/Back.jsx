@@ -1,7 +1,7 @@
 'use client'
 
 import * as THREE from "three";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {GLTFLoader}from 'three/examples/jsm/loaders/GLTFLoader' ;
 import { FlyControls } from "three/addons/controls/FlyControls.js";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -10,6 +10,8 @@ export default function ThreeScene() {
   const canvasRef = useRef(null);
   const meshRef=useRef(null)
   const moonRef=useRef(null)
+  const [ready1,setReady1]=useState(true);
+  const [ready3,setReady2]=useState(false);
  useEffect(() => {
   const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current, antialias: true ,alpha:true });
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -18,6 +20,8 @@ export default function ThreeScene() {
   const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
   camera.position.set(0, 3, 5);
   camera.lookAt(0,0,0)
+
+  const scene = new THREE.Scene();
 
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;   // حركة ناعمة
@@ -29,8 +33,8 @@ export default function ThreeScene() {
   controls.minDistance = 5;        // أقل مسافة زووم
   controls.maxDistance = 100;      // أقصى مسافة
 
-  const scene = new THREE.Scene();
-  
+
+
   const geometry = new THREE.BoxGeometry(2, 2, 2);
 
   const material = new THREE.MeshBasicMaterial({
@@ -45,8 +49,13 @@ export default function ThreeScene() {
   sunLight.position.set(-20, 5,0);
   sunLight.castShadow = true;
   scene.add(sunLight);
-
-  const loader2 = new GLTFLoader();
+  
+  const loadingManager=new THREE.LoadingManager();
+  loadingManager.onLoad = () => {
+    console.log("Loading finished");
+    setReady2(true)
+  };
+  const loader2 = new GLTFLoader(loadingManager);
   loader2.load('/92-intergalactic-spaceship_blender_2.79b_bi/uploads_files_6669987_MOON05.glb', (glft) => {
     const mesh = glft.scene;
     mesh.position.set(0, -20, -7);
@@ -55,16 +64,7 @@ export default function ThreeScene() {
     moonRef.current=mesh
   });
 
-  // const spotLight = new THREE.SpotLight('rgb(255, 247, 223)', 130, 50, 0.5, 0.2);
-  // spotLight.position.set(-4,5,0);
-  // scene.add(spotLight);
-
-  // const spotLight2 = new THREE.SpotLight('rgb(35, 37, 184)', 130, 150, 0.5, 0.2);
-  // spotLight2.position.set(0, -5, 4);
-  // scene.add(spotLight2);
-
-
-  const loader = new GLTFLoader();
+  const loader = new GLTFLoader(loadingManager);
   loader.load('/millennium_falcon/scene.gltf', (glft) => {
     const mesh = glft.scene;
     mesh.position.set(-1, 0, 0);
@@ -101,9 +101,16 @@ export default function ThreeScene() {
 }, []);
 
   return (
-    <canvas
-      className="back"
-      ref={canvasRef}
-    ></canvas>
+    <>
+      <div className="loadingpage" style={{height:(ready3&&ready1)?"0vh":"100vh"}}>
+        <span></span>
+      </div>
+      < canvas
+        className="back"
+        ref={canvasRef}
+      >
+
+      </canvas>
+    </>
   );
 }

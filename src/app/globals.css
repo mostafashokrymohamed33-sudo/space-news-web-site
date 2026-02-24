@@ -57,6 +57,11 @@ body {
         flex-direction: column;
         gap: 10px;
         .card{
+            
+            box-shadow:0px 0px 100px ;
+            background-color: rgb(255, 255, 255);
+            color: rgb(2, 0, 0);
+
             border: solid rgba(255, 255, 255, 0.289) 1px ;
             color: rgb(255, 255, 255);
             min-height: 400px;
@@ -82,10 +87,18 @@ body {
                 margin: 10px 0px ;
                 padding: 10px;
                 padding-top: 100px;
-                background-image: linear-gradient(black red);
                 font-size: 250%;
                 font-weight: 100;
+                background-position: center;
+                background-size: cover;
+                background-attachment: fixed;
             } 
+
+        }
+        .card.show{
+            box-shadow: 0px 0px 0px ;
+            background-color: rgba(255, 0, 0, 0);
+            color: rgb(255, 255, 255);
 
         }
     }
@@ -112,4 +125,31 @@ body {
     height: 100%;
     backdrop-filter: grayscale(100%) brightness(17%) blur(2px);
     z-index: -2;
+}
+.loadingpage{
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    span{
+        border: solid rgb(255, 255, 255);
+        border-left:none;
+        border-right:none;
+        width: 200px;
+        aspect-ratio: 1/1;
+        border-radius: 100px;
+        animation-name: loading;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+    }
+}
+@keyframes loading{
+    50%{
+        rotate: 360deg;
+    }
 }

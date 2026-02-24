@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 export async function GET() {
   const KEY = process.env.NEWS_API_KEY;
-  // const url = `https://gnews.io/api/v4/search?q=space&lang=en&max=10&token=`+KEY;
-  const url = `https://gnews.io/api/v4/search?q=astronomy OR nasa OR space exploration&lang=en&max=40&token=${KEY}`;
+  const url = `https://gnews.io/api/v4/search?q=cosmos&lang=en&max=40&token=${KEY}`;
   try {
     const response = await fetch(url);
     const data = await response.json();
