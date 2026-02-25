@@ -14,10 +14,14 @@ export default function Home() {
       setNews(Assets[num])
     }
   }
-  const cardsRef=useRef([])
   useEffect(()=>{
     filtringNews()
+    fetch("/api/news").then(res=>res.json())
+    .then(data=>{
+      console.log(JSON.stringify(data.articles))
+    })
   },[])
+  const cardsRef=useRef([])
   useEffect(()=>{
     const observer = new IntersectionObserver((entries)=>{
         entries.forEach((intry)=>{
@@ -36,7 +40,8 @@ export default function Home() {
 
   return (
     <>
-    <div className="inrto">
+    <div className="intro">
+      <div>welcome</div>
     </div>
     <div className="news">
       <div className="main">
@@ -51,7 +56,13 @@ export default function Home() {
           </div>
         })}
       </div>
-      <div className="side"></div>
+      <div className="side">
+        <button onClick={()=>filtringNews()}>all </button>
+        <button onClick={()=>filtringNews(0)}>NASA</button>
+        <button onClick={()=>filtringNews(1)}>SOLAR SYSTEM</button>
+        <button onClick={()=>filtringNews(2)}>COSMOS</button>
+        <button onClick={()=>filtringNews(3)}>BLACK HOLES</button>
+      </div>
     </div>
     <Back/>
     <div className="filter">

@@ -3,7 +3,6 @@
 import * as THREE from "three";
 import { useEffect, useRef, useState } from "react";
 import {GLTFLoader}from 'three/examples/jsm/loaders/GLTFLoader' ;
-import { FlyControls } from "three/addons/controls/FlyControls.js";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 export default function ThreeScene() {
@@ -33,17 +32,13 @@ export default function ThreeScene() {
   controls.minDistance = 5;        // أقل مسافة زووم
   controls.maxDistance = 100;      // أقصى مسافة
 
-
-
-  const geometry = new THREE.BoxGeometry(2, 2, 2);
-
-  const material = new THREE.MeshBasicMaterial({
-    color: 0x00ff00,  
-  });
-
-  const cube = new THREE.Mesh(geometry, material);
-  cube.position.set(-10, 5,0);
-  scene.add(cube);
+  const textureLoader = new THREE.TextureLoader();
+  const worledTexture = textureLoader.load('/map.png');
+  const geometry = new THREE.SphereGeometry(1, 32, 32);
+  const material = new THREE.MeshStandardMaterial({map:worledTexture});
+  const cora = new THREE.Mesh(geometry, material);
+  cora.position.set(10, 0,-10);
+  scene.add(cora);
 
   const sunLight = new THREE.DirectionalLight(0xffffff, 7);
   sunLight.position.set(-20, 5,0);
@@ -81,7 +76,8 @@ export default function ThreeScene() {
     renderer.render(scene, camera);
     frame++
     if(meshRef.current){ meshRef.current.position.x = (-2.5)+(Math.sin(frame*0.001));meshRef.current.position.z = (0)+(Math.sin(frame*0.002))}
-    if(moonRef.current)moonRef.current.rotation.set(frame*0.001,0,0)
+    if(moonRef.current)moonRef.current.rotation.set(frame*0.001,0,0);
+    cora.rotation.set(frame*0.001,frame*0.001,0);
     
 
   };
