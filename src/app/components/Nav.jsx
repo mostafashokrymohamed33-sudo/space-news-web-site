@@ -1,9 +1,6 @@
 export default function Nav (){
     return <nav>
-        <h3>logo</h3>
-        <a>link</a>
-        <a>link</a>
-        <a>link</a>
-        <a>link</a>
+        <h3>SpacENewS </h3>
+        <a>ConTacT</a>
     </nav>
 }

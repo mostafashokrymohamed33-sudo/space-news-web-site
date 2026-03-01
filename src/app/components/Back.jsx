@@ -77,9 +77,7 @@ export default function ThreeScene() {
     frame++
     if(meshRef.current){ meshRef.current.position.x = (-2.5)+(Math.sin(frame*0.001));meshRef.current.position.z = (0)+(Math.sin(frame*0.002))}
     if(moonRef.current)moonRef.current.rotation.set(frame*0.001,0,0);
-    cora.rotation.set(frame*0.001,frame*0.001,0);
-    
-
+    cora.rotation.set(frame*0.001,frame*0.009,0);
   };
   animate();
 
@@ -89,7 +87,6 @@ export default function ThreeScene() {
     renderer.setSize(window.innerWidth, window.innerHeight);
   };
   window.addEventListener('resize', handleResize);
-
   return () => {
     renderer.dispose();
     window.removeEventListener('resize', handleResize);
@@ -98,14 +95,13 @@ export default function ThreeScene() {
 
   return (
     <>
-      <div className="loadingpage" style={{height:(ready3&&ready1)?"0vh":"100vh"}}>
+      <div className="loadingpage" style={{height:(ready3&&ready1)?"0%":"100%"}}>
         <span></span>
       </div>
       < canvas
         className="back"
         ref={canvasRef}
       >
-
       </canvas>
     </>
   );

@@ -15,11 +15,15 @@ export default function Home() {
     }
   }
   useEffect(()=>{
-    filtringNews()
+    console.log("fetching news")
     fetch("/api/news").then(res=>res.json())
     .then(data=>{
-      console.log(JSON.stringify(data.articles))
+      console.log(data)
     })
+    .catch(er=>{
+      console.log(er)
+    })
+    filtringNews()
   },[])
   const cardsRef=useRef([])
   useEffect(()=>{
@@ -41,8 +45,12 @@ export default function Home() {
   return (
     <>
     <div className="intro">
-      <div>welcome</div>
+      <div>
+        welcome <hr/>
+        where you can find the latest news about space 
+      </div>
     </div>
+    
     <div className="news">
       <div className="main">
         {news?.map((item,i)=>{
@@ -50,9 +58,12 @@ export default function Home() {
            ref={(el)=>(cardsRef.current[i]=el)}
            key={i} className="card ops"
            >
-            <a href={item.url}>{item.source.name}</a>
+            <a href={item.url}>{item.source.name}</a> <span>{item.publishedAt}</span>
             <div className="title">{item.title}.</div>
-            <div className="content" style={{backgroundImage:`linear-gradient(rgba(0, 0, 0, 0.22),rgb(0, 0, 0)),url(${item.image})`}}>{item.content}...</div>
+            <div className="content" style={{backgroundImage:`linear-gradient(rgba(0, 0, 0, 0.22),rgb(0, 0, 0)),url(${item.image})`}}>
+              {item.content}...
+              <a href={item.url}>{item.source.name}</a>
+            </div>
           </div>
         })}
       </div>
@@ -62,9 +73,10 @@ export default function Home() {
         <button onClick={()=>filtringNews(1)}>SOLAR SYSTEM</button>
         <button onClick={()=>filtringNews(2)}>COSMOS</button>
         <button onClick={()=>filtringNews(3)}>BLACK HOLES</button>
+        <button onClick={()=>filtringNews(4)}>exoplanets</button>
       </div>
     </div>
-    <Back/>
+    {/* <Back/> */}
     <div className="filter">
     </div>
     </>
