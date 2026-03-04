@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react"
 import Back from "./components/Back";
 import Assets from "./assets";
+import Slider from "./components/Slider";
 export default function Home() {
 
   const [news,setNews]=useState([]);
@@ -14,19 +15,9 @@ export default function Home() {
       setNews(Assets[num])
     }
   }
-  useEffect(()=>{
-    console.log("fetching news")
-    fetch("/api/news").then(res=>res.json())
-    .then(data=>{
-      console.log(data)
-    })
-    .catch(er=>{
-      console.log(er)
-    })
-    filtringNews()
-  },[])
   const cardsRef=useRef([])
   useEffect(()=>{
+    // filtringNews()
     const observer = new IntersectionObserver((entries)=>{
         entries.forEach((intry)=>{
             if (intry.isIntersecting){
@@ -43,42 +34,38 @@ export default function Home() {
 
 
   return (
-    <>
-    <div className="intro">
-      <div>
-        welcome <hr/>
-        where you can find the latest news about space 
+    <div className="home-page">
+      <div className="intro">
+        <div>
+          welcome 
+        </div>
       </div>
-    </div>
-    
-    <div className="news">
-      <div className="main">
-        {news?.map((item,i)=>{
-          return <div
-           ref={(el)=>(cardsRef.current[i]=el)}
-           key={i} className="card ops"
-           >
-            <a href={item.url}>{item.source.name}</a> <span>{item.publishedAt}</span>
-            <div className="title">{item.title}.</div>
-            <div className="content" style={{backgroundImage:`linear-gradient(rgba(0, 0, 0, 0.22),rgb(0, 0, 0)),url(${item.image})`}}>
-              {item.content}...
-              <a href={item.url}>{item.source.name}</a>
+      <Slider/>
+      <div className="news">
+        <div className="main">
+          {news?.map((item,i)=>{
+            return <div
+            ref={(el)=>(cardsRef.current[i]=el)}
+            key={i} className="card ops"
+            >
+              <a href={item.url}>{item.source.name}</a> <span>{item.publishedAt}</span>
+              <div className="title">{item.title}.</div>
+              <div className="content" style={{backgroundImage:`linear-gradient(rgba(0, 0, 0, 0.22),rgb(0, 0, 0)),url(${item.image})`}}>
+                {item.content}...
+                <a href={item.url}>{item.source.name}</a>
+              </div>
             </div>
-          </div>
-        })}
-      </div>
-      <div className="side">
-        <button onClick={()=>filtringNews()}>all </button>
-        <button onClick={()=>filtringNews(0)}>NASA</button>
-        <button onClick={()=>filtringNews(1)}>SOLAR SYSTEM</button>
-        <button onClick={()=>filtringNews(2)}>COSMOS</button>
-        <button onClick={()=>filtringNews(3)}>BLACK HOLES</button>
-        <button onClick={()=>filtringNews(4)}>exoplanets</button>
+          })}
+        </div>
+        <div className="side">
+          <button onClick={()=>filtringNews()}>all </button>
+          <button onClick={()=>filtringNews(0)}>NASA</button>
+          <button onClick={()=>filtringNews(1)}>SOLAR SYSTEM</button>
+          <button onClick={()=>filtringNews(2)}>COSMOS</button>
+          <button onClick={()=>filtringNews(3)}>BLACK HOLES</button>
+          <button onClick={()=>filtringNews(4)}>exoplanets</button>
+        </div>
       </div>
     </div>
-    {/* <Back/> */}
-    <div className="filter">
-    </div>
-    </>
   );
 }
