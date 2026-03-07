@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
           <Nav/>
           {children}
-          {/* <Back/> */}
+          <Back/>
           <Footer/>
         <div className="filter">
         </div>
