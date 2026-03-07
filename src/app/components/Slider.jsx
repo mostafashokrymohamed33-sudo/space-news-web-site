@@ -4,9 +4,12 @@ import { useEffect, useState } from "react"
 
 export default function Slider(){
     const [cards,setCards]=useState([])
+     const KEY = `VFagih4RXPlVmIfiHJha0LCZL25hdQJfjcwziul2`;
+     const cardscounte=50;
+    const url = `https://api.nasa.gov/planetary/apod?api_key=${KEY}&count=${cardscounte}`;
     useEffect(()=>{
         console.log("fetching news")
-        fetch("/api/news")
+        fetch(url)
         .then(res=>res.json())
         .then(data=>{setCards(data)}) 
     },[])
