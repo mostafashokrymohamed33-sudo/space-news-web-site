@@ -77,6 +77,12 @@ export default function ThreeScene() {
     renderer.setSize(window.innerWidth, window.innerHeight);
   };
   window.addEventListener('resize', handleResize);
+
+  setTimeout(() => {
+    setReady1(true)
+    setReady2(true)
+    
+  }, 6000);
   return () => {
     renderer.dispose();
     window.removeEventListener('resize', handleResize);
