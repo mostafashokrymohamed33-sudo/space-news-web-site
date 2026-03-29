@@ -26,6 +26,7 @@ export default function RootLayout({ children }) {
           <Nav/>
           {children}
           <Back/>
+
           <Footer/>
         <div className="filter">
         </div>

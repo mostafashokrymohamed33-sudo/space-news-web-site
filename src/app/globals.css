@@ -81,6 +81,8 @@ body {
 @keyframes loading{
     50%{
         rotate: 360deg;
+        width: 50px;
+        border-radius:10px ;
     }
 }
 .home-page{
@@ -100,10 +102,10 @@ body {
 
     }
     .slider{
-        columns: 4 400px;
+        columns: 4 300px;
         column-gap: 10px;
         width:70vw;
-        min-width: 400px;
+        min-width: 100%;
         margin: 0px auto;
         .card{
             padding: 50px;
@@ -126,7 +128,6 @@ body {
                 left: 0px;
                 width: 100%;
                 height: 100%;
-                background-color: red;
                 z-index: -1;
             }
             break-inside: avoid;
@@ -224,10 +225,25 @@ body {
         }
     }
 }
+@media (max-width: 700px){
+    .home-page{
+        .intro{
+            div{
+                font-size: 50%;
+            }
+        }
+        .slider{
+            .card{
+                box-sizing: border-box;
+                padding: 10px;
+            }
+        }
+    }
+}
+
 .neo-page{
     text-align: center;
     margin: 0px auto;
-    width: 80vw;
     .intro{
         font-size: 140%;
     }
@@ -249,7 +265,7 @@ body {
             border-bottom: solid 1px white;
         }
         tr{
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);       
         }
         td{
             font-size: 150%;
@@ -259,6 +275,25 @@ body {
             }
         }
     };
+    .true{
+        border: solid red;
+    }
+}
+@media (max-width: 700px){
+    .neo-page{
+        .intro{
+            font-size: 100%;
+        }
+        table{
+            thead td{
+                font-size: 70%;
+            }
+            td{
+                font-size: 70%;
+                padding: 5px;
+            }
+        }
+    }
 }
 .eonet-page{
     text-align: center;
@@ -290,21 +325,23 @@ body {
 
 
 .footer{
-background-color:#000;
-color:#fff;
-padding:40px 20px;
-text-align:center;
-margin-top:80px;
+    background-color:#000;
+    color:#fff;
+    padding:40px 20px;
+    text-align:center;
+    margin-top:80px;
+    position: relative;
+    z-index: -1;
 }
 
 .footer-container{
-max-width:1000px;
-margin:auto;
+    max-width:1000px;
+    margin:auto;
 }
 
 .footer h3{
-margin-bottom:10px;
-font-size:22px;
+    margin-bottom:10px;
+    font-size:22px;
 }
 
 .footer p{

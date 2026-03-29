@@ -45,19 +45,17 @@ export default function Neo(){
                         <td>Absolute Magnitude</td>
                         <td>MAX Diameter (km)</td>
                         <td>MIN Diameter (km)</td>
-                        <td>Is Potentially Hazardous</td>
                 </tr>
             </thead>
             <tbody>
                 {
                     cards?.map((item,i)=>{
-                        return<tr onClick={()=>{window.location.href=item.nasa_jpl_url}} key={i}>
+                        return<tr className={`${item.is_potentially_hazardous_asteroid}` } onClick={()=>{window.location.href=item.nasa_jpl_url}} key={i}>
                                 <td>{item.id}</td>
                                 <td>{item.name}</td>
                                 <td>{item.absolute_magnitude_h}</td>
                                 <td>{item.estimated_diameter.kilometers.estimated_diameter_max.toFixed(3)}</td>
                                 <td>{item.estimated_diameter.kilometers.estimated_diameter_min.toFixed(3)}</td>
-                                <td>{item.is_potentially_hazardous_asteroid ? "Yes" : "No"}</td>
                         </tr>
                     })
                 }

@@ -3,7 +3,6 @@
 import * as THREE from "three";
 import { useEffect, useRef, useState } from "react";
 import {GLTFLoader}from 'three/examples/jsm/loaders/GLTFLoader' ;
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 export default function ThreeScene() {
   const canvasRef = useRef(null);
@@ -22,15 +21,6 @@ export default function ThreeScene() {
 
   const scene = new THREE.Scene();
 
-  const controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;   // حركة ناعمة
-  controls.dampingFactor = 0.05;
-
-  controls.enableZoom = true;      // زووم
-  controls.enablePan = false;      // منع التحريك الجانبي لو مش عايزه
-
-  controls.minDistance = 5;        // أقل مسافة زووم
-  controls.maxDistance = 100;      // أقصى مسافة
 
   const textureLoader = new THREE.TextureLoader();
   const worledTexture = textureLoader.load('/map.png');
@@ -60,7 +50,8 @@ export default function ThreeScene() {
   });
 
   const loader = new GLTFLoader(loadingManager);
-  loader.load('/millennium_falcon/scene.gltf', (glft) => {
+  loader.setPath('/millennium_falcon/');
+  loader.load('scene.gltf', (glft) => {
     const mesh = glft.scene;
     mesh.position.set(-1, 0, 0);
     mesh.scale.set(0.7, 0.7, 0.7);
@@ -72,7 +63,6 @@ export default function ThreeScene() {
   let frame=0
   const animate = () => {
     requestAnimationFrame(animate);
-    controls.update();
     renderer.render(scene, camera);
     frame++
     if(meshRef.current){ meshRef.current.position.x = (-2.5)+(Math.sin(frame*0.001));meshRef.current.position.z = (0)+(Math.sin(frame*0.002))}
